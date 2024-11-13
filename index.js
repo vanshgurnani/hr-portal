@@ -27,6 +27,9 @@ app.use(session(EXPRESS_SESSION_CONFIGS));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => {
+    res.json({ message: "Welcome to the API" });
+});
 app.use("/api/auth", authRouter);
 app.use("/api/org", orgRouter);
 
