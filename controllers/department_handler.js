@@ -5,16 +5,19 @@ const DATABASE_COLLECTIONS = configs.CONSTANTS.DATABASE_COLLECTIONS;
 
 module.exports.createDepartment = async (req, res) => {
     try {
+        const userEmail = req.decodedToken.email;
+
         const requiredFields = [
-            { property: "orgId", optional: false },
-            { property: "name", optional: false },
-            { property: "supervisor", optional: false },
+            { property: "orgId", optional: true },
+            { property: "name", optional: true },
+            { property: "supervisor", optional: true },
             { property: "latePenalty", optional: true },
             { property: "workPattern", optional: true },
             { property: "noteOnAttendanceIn", optional: true },
             { property: "noteOnAttendanceOut", optional: true },
             { property: "noteOnOvertimeClockIn", optional: true },
-            { property: "noteOnOvertimeClockOut", optional: true }
+            { property: "noteOnOvertimeClockOut", optional: true },
+            { property: "hrEmail", optional: true }
         ];
 
         const payload = await commonUtils.validateRequestBody(req.body, requiredFields);
@@ -29,7 +32,8 @@ module.exports.createDepartment = async (req, res) => {
             noteOnAttendanceIn,
             noteOnAttendanceOut,
             noteOnOvertimeClockIn,
-            noteOnOvertimeClockOut
+            noteOnOvertimeClockOut,
+            hrEmail: userEmail
         };
 
         const department = await dbUtils.create(newDepartment, DATABASE_COLLECTIONS.DEPARTMENT);

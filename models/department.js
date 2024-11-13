@@ -4,6 +4,9 @@ const configs = require("../configs.json");
 const DATABASE = configs.CONSTANTS;
 
 const departmentSchema = new Schema({
+    hrEmail: {
+        type: String
+    },
     orgId: {
         type: String
     },

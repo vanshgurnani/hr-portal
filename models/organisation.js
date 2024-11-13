@@ -4,6 +4,9 @@ const configs = require("../configs.json");
 const DATABASE = configs.CONSTANTS;
 
 const organisationSchema = new Schema({
+    hrEmail: {
+        type: String
+    },
     email: {
         type: String,
         required: true, 

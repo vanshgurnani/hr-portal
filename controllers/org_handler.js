@@ -6,9 +6,11 @@ const DATABASE_COLLECTIONS = configs.CONSTANTS.DATABASE_COLLECTIONS;
 
 module.exports.createOrganisation = async (req, res) => {
     try {
+        const userEmail = req.decodedToken.email;
+
         const requiredFields = [
-            { property: "email", optional: false },
-            { property: "name", optional: false },
+            { property: "email", optional: true },
+            { property: "name", optional: true },
             { property: "description", optional: true },
             { property: "phoneNumber", optional: true },
             { property: "location", optional: true },
@@ -16,7 +18,9 @@ module.exports.createOrganisation = async (req, res) => {
             { property: "city", optional: true },
             { property: "state", optional: true },
             { property: "country", optional: true },
-            { property: "webLink", optional: true }
+            { property: "webLink", optional: true },
+            { property: "hrEmail", optional: true }
+
         ];
 
         const payload = await commonUtils.validateRequestBody(req.body, requiredFields);
@@ -40,7 +44,8 @@ module.exports.createOrganisation = async (req, res) => {
             state,
             country,
             imgUrl,
-            webLink
+            webLink,
+            hrEmail: userEmail
         };
 
         const org = await dbUtils.create(newOrg, DATABASE_COLLECTIONS.ORGANISATION);

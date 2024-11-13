@@ -31,7 +31,7 @@ module.exports.createAttendance = async (req, res) => {
         res.status(200).json({ type: "Success", attendance });
     } catch (error) {
         console.error(`[createAttendance] Error occurred: ${error}`);
-        res.status(400).json({ type: 'Error', message: error.message });
+        res.status(500).json({ type: 'Error', message: error.message });
     }
 };
 

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const work = require("../controllers/work_pattern_handler");
-// const JwtService = require("../middleware/jwt");
+const JwtService = require("../middleware/jwt");
 
 
 // const multer = require('multer');
@@ -9,7 +9,7 @@ const work = require("../controllers/work_pattern_handler");
 //     storage: multer.memoryStorage()
 // });
 
-router.post("/", work.createWorkPattern);
+router.post("/", JwtService.validateJwt, work.createWorkPattern);
 router.post("/all", work.getAllWorkPatterns);
 router.delete("/", work.deleteWorkPattern);
 

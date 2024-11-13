@@ -5,11 +5,15 @@ const DATABASE_COLLECTIONS = configs.CONSTANTS.DATABASE_COLLECTIONS;
 
 module.exports.createWorkPattern = async (req, res) => {
     try {
+        const userEmail = req.decodedToken.email;
+
         const requiredFields = [
-            { property: "orgId", optional: false },
-            { property: "name", optional: false },
-            { property: "tardinessTolerance", optional: false },
-            { property: "weekdays", optional: false }
+            { property: "orgId", optional: true },
+            { property: "name", optional: true },
+            { property: "tardinessTolerance", optional: true },
+            { property: "weekdays", optional: true },
+            { property: "hrEmail", optional: true }
+
         ];
 
         // Validate the incoming request body
